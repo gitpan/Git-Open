@@ -26,9 +26,10 @@ my %WriteMakefileArgs = (
     "Getopt::Mini" => "0.02"
   },
   "TEST_REQUIRES" => {
+    "Test::Mock::Cmd" => "0.6",
     "Test::More" => "1.001002"
   },
-  "VERSION" => "0.1.0",
+  "VERSION" => "0.1.1",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -37,6 +38,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Getopt::Mini" => "0.02",
+  "Test::Mock::Cmd" => "0.6",
   "Test::More" => "1.001002"
 );
 

@@ -3,6 +3,7 @@ abstract: "a totally cool way to open repository page, sometime it's hard to rem
 author:
   - 'Pattarawat Chormai <pat.chormai@gmail.com>'
 build_requires:
+  Test::Mock::Cmd: 0.6
   Test::More: 1.001002
 configure_requires:
   ExtUtils::MakeMaker: 6.30
@@ -15,4 +16,4 @@ meta-spec:
 name: Git-Open
 requires:
   Getopt::Mini: 0.02
-version: 0.1.0
+version: 0.1.1

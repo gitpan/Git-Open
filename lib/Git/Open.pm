@@ -53,7 +53,7 @@ Git::Open - a totally cool way to open repository page, sometime it's hard to re
 
 =head1 VERSION
 
-version 0.1.0
+version 0.1.1
 
 =head1 USAGE
 
