@@ -53,11 +53,14 @@ Git::Open - a totally cool way to open repository page, sometime it's hard to re
 
 =head1 VERSION
 
-version 0.001
+version 0.1.0
 
 =head1 USAGE
+
     git open # it will open homepage of your repository
+
     git open --compare # it will open compare page
+
     git open --compare master-develop # Open compare page with branch diff
 
     Tip: -c is a shorthand for --compare
