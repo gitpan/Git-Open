@@ -1,42 +1,63 @@
 use strict;
 use warnings;
 package Git::Open;
+use Moose;
+use Git::Open::Util;
 
-# ABSTRACT: a totally cool way to open repository page, sometime it's hard to remember.
+use Moose::Util::TypeConstraints;
 
+with 'MooseX::Getopt::Usage';
 
-sub _remote_url {
-    my $git_url = `git ls-remote --get-url`;
+subtype 'MaybeStr'
+    => as 'Str'
+    => where { defined $_ };
 
-    $git_url =~ s/\n//;
-    $git_url =~ s/:/\//; # Change : to /
-    $git_url =~ s/^git@/http:\/\//; # Change protocal to http
-    $git_url =~ s/\.git$//; # Remove .git at the end
-    return $git_url;
-}
+MooseX::Getopt::OptionTypeMap->add_option_type_to_map(
+    'MaybeStr' => ':s'
+);
 
-sub _current_branch {
-    my $current_branch = `git symbolic-ref --short HEAD`;
-    return $current_branch;
-}
+has compare => (
+    is => 'ro',
+    isa => 'MaybeStr',
+    default => '',
+    documentation => 'To open compare view, ex: --compare master-develop'
+);
 
-sub url {
-    my ( $opts ) = @_;
+has 'branch' => (
+    is => 'ro',
+    isa => 'MaybeStr',
+    documentation => 'To open branch view: --branch develop'
+);
 
-    my $url = Git::Open::_remote_url();
-
-    if( exists $opts->{compare} ) {
-        $url = "$url/compare";
-
-        my $diff = $opts->{compare}->{diff};
-
-        if ( $diff ) {
-            $diff =~ s/-/\.\.\./g; # Replace dash(-) to triple dot(...) as github uses
-            $url = "$url/$diff";
-        }
+has generator => (
+    is => 'ro',
+    metaclass => 'NoGetopt',
+    isa => 'Git::Open::Util',
+    default => sub {
+        return Git::Open::Util->new();
+    },
+    handles => {
+        url => 'generate_url'
     }
+);
 
-    return $url;
+# ABSTRACT: The totally cool way to open repository page, sometime it's hard to remember and open via browser manually.
+
+
+sub run {
+    my $self = shift;
+
+    my $url = $self->url( $self->args );
+    system("git web--browse $url");
+}
+
+# TODO: Find the way to args get it from Moose
+sub args {
+    my $self = shift;
+    return {
+        compare => $self->compare(),
+        branch => $self->branch()
+    };
 }
 
 1;
@@ -49,11 +70,11 @@ __END__
 
 =head1 NAME
 
-Git::Open - a totally cool way to open repository page, sometime it's hard to remember.
+Git::Open - The totally cool way to open repository page, sometime it's hard to remember and open via browser manually.
 
 =head1 VERSION
 
-version 0.1.1
+version 0.1.2
 
 =head1 USAGE
 
@@ -61,9 +82,11 @@ version 0.1.1
 
     git open --compare # it will open compare page
 
-    git open --compare master-develop # Open compare page with branch diff
+    git open --compare master-develop # Open compare page betwee master and develop
 
-    Tip: -c is a shorthand for --compare
+    git open --branch master # Open master branch's page
+
+    git open --branch # Open current branch's page
 
 =head1 AUTHOR
 

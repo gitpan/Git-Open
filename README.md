@@ -4,13 +4,16 @@ be able to open repository page from commandline.
 
 ## Usage
 
+
 ```
-# Open repository page following remote url
-gitopen
+    git open # it will open homepage of your repository
 
-# Open compare page following
-gitopen -c
+    git open --compare # it will open compare page
 
-# Open compare page with branch specific
-gitopen -c -d master...develop
+    git open --compare master-develop # Open compare page betwee master and develop
+
+    git open --branch master # Open master branch's page
+
+    git open --branch # Open current branch's page
+
 ```

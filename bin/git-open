@@ -1,22 +1,11 @@
 #!/usr/bin/perl
 use Git::Open;
-use Getopt::Mini 0.02;   # parses the @ARGV into %ARGV
 
 # PODNAME: git-open
 # ABSTRACT: wrapper for Git::Open
 
-my $opts = {};
-if( (exists $ARGV{'compare'}) || (exists $ARGV{'c'})  )  {
-    my $compare = {
-        diff => $ARGV{'compare'} || $ARGV{'c'}
-    };
-
-    $opts->{compare} = $compare;
-}
-
-my $url = Git::Open::url($opts);
-
-system("git web--browse $url");
+my $app = Git::Open->new_with_options;
+$app->run();
 
 __END__
 
@@ -30,7 +19,7 @@ git-open - wrapper for Git::Open
 
 =head1 VERSION
 
-version 0.1.1
+version 0.1.2
 
 =head1 AUTHOR
 
