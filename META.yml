@@ -16,4 +16,4 @@ meta-spec:
 name: Git-Open
 requires:
   Getopt::Mini: 0.02
-version: 0.1.2
+version: 0.1.3
