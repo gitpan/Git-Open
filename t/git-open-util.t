@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 
-use Test::Mock::Cmd 'qr' => {
-    'git ls-remote --get-url' => sub { return 'git@github.com:abc/xzy.git' },
-    'git symbolic-ref --short HEAD' => sub { return 'masterxx'; }
-};
+use FindBin;
+use lib "$FindBin::Bin/lib";
+
+use TestSetup;
 
 use Git::Open::Util;
 
