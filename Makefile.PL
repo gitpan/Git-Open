@@ -23,13 +23,14 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Git::Open",
   "PREREQ_PM" => {
-    "Getopt::Mini" => "0.02"
+    "Moose" => 0,
+    "MooseX::Getopt::Usage" => 0
   },
   "TEST_REQUIRES" => {
     "Test::Mock::Cmd" => "0.6",
     "Test::More" => "1.001002"
   },
-  "VERSION" => "0.1.4",
+  "VERSION" => "0.1.9",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -37,7 +38,8 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Getopt::Mini" => "0.02",
+  "Moose" => 0,
+  "MooseX::Getopt::Usage" => 0,
   "Test::Mock::Cmd" => "0.6",
   "Test::More" => "1.001002"
 );

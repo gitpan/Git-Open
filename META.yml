@@ -15,5 +15,6 @@ meta-spec:
   version: 1.4
 name: Git-Open
 requires:
-  Getopt::Mini: 0.02
-version: 0.1.4
+  Moose: 0
+  MooseX::Getopt::Usage: 0
+version: 0.1.9
